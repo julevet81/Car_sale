@@ -7,12 +7,10 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $brands = Brand::all();
+        return view('brands.index', compact('brands'));
     }
 
     /**
@@ -20,15 +18,17 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('brands.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:brands',
+            'description' => 'nullable|string|max:1000',
+        ]);
+        Brand::create($request->all());
+        return redirect()->route('brand.index')->with('success', 'Brand created successfully.');
     }
 
     /**
@@ -36,7 +36,14 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        //
+        $brandData = [
+            'Name' => $brand->name,
+            'Country' => $brand->country,
+            'Logo' => $brand->logo,
+            'Created At' => $brand->created_at->format('Y-m-d H:i:s'),
+            'Updated At' => $brand->updated_at->format('Y-m-d H:i:s'),
+        ];
+        return view('brands.show', compact('brandData'));
     }
 
     /**
@@ -44,7 +51,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        return view('brands.edit', compact('brand'));
     }
 
     /**
@@ -52,7 +59,15 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50|unique:brands,name,' . $brand->id,
+            'country' => 'nullable|string|max:50',
+            'logo' => 'nullable|string|max:500',
+        ]);
+
+        $brand->update($request->all());
+
+        return redirect()->route('brand.index')->with('success', 'Brand updated successfully.');
     }
 
     /**
@@ -60,6 +75,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+        return redirect()->route('brand.index')->with('success', 'Brand deleted successfully.');
     }
 }

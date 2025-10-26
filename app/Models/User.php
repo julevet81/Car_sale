@@ -88,4 +88,8 @@ class User extends Authenticatable
         return $this->hasRole('customer');
     }
 
+    public function cars(){
+        return $this->hasMany(Car::class);
+    }
+
 }

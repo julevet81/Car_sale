@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\CarModelController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
@@ -45,5 +49,21 @@ Route::resource('employee', EmployeeController::class)->middleware('auth');
 ############################# Customer Routes ##############################
 
 Route::resource('customer', CustomerController::class)->middleware('auth');
+
+############################ Brand Routes ################################
+
+Route::resource('brand', BrandController::class)->middleware('auth');
+
+########################### Car Model routes ##############################
+
+Route::resource('car_model', CarModelController::class)->middleware('auth');
+
+########################### Categoriesl routes ##############################
+
+Route::resource('categories', CategoryController::class)->middleware('auth');
+
+########################### Cars routes ##############################
+
+Route::resource('cars', CarController::class);
 
 require __DIR__.'/auth.php';
