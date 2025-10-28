@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
             } elseif ($user->role_id === 2) {
                 return redirect()->intended('/dashboard/employee');
             } else {
-                return redirect()->intended('/dashboard/user');
+                return redirect()->intended('/index');
             }
         }
 

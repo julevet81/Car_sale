@@ -66,4 +66,10 @@ Route::resource('categories', CategoryController::class)->middleware('auth');
 
 Route::resource('cars', CarController::class);
 
+########################## Frontend Management ###########################
+
+Route::get('/index', function () {
+    return view('front.index');
+});
+
 require __DIR__.'/auth.php';
